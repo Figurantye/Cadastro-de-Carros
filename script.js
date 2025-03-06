@@ -22,7 +22,7 @@ function addCarToList(car, index) {
     var carList = document.getElementById("car-list");
     var li = document.createElement("li");
     li.className = "list-group-item d-flex justify-content-between align-items-center";
-    li.innerHTML = "<span> <strong>" + car.model + "</strong> - " + car.year + " R$" + car.price + "</span>" + 
+    li.innerHTML = "<span> " +  (index + 1) + " - <strong> " + car.model + "</strong> - " + car.year + " - R$" + car.price + "</span>" + 
     "<button class='btn btn-danger btn-sm' onclick='deleteCar(" + index + ")'>Deletar</button>"
     
     carList.appendChild(li);
@@ -48,4 +48,14 @@ function addCar(event) {
 //Salvar carros, ou adicioná-los no localStorage
 function saveCars(cars) {
     localStorage.setItem("cars", JSON.stringify(cars));
+}
+
+//Deletar somente um carro
+
+function deleteCar(index) {
+    var cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+    cars.splice(index, 1)
+    saveCars(cars)
+    loadCars();
 }
